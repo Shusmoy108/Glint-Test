@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
-class CommentInput extends StatelessWidget {
-  final String label;
+class BlogInput extends StatelessWidget {
   final TextEditingController textEditingController;
-  CommentInput(this.label, this.textEditingController);
+
+  BlogInput(this.textEditingController);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -12,27 +13,13 @@ class CommentInput extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 20.0, bottom: 8),
-              child: Text(
-                label,
-                style: TextStyle(
-                  fontFamily: "Lucidasans",
-                  fontSize: 18,
-                  color: Colors.black,
-                ),
-              ),
-            ),
-          ),
           Container(
-
               //padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
               //color: Colors.white,
               child: TextFormField(
             controller: textEditingController,
             maxLines: 3,
+            maxLength: 280,
             style: TextStyle(
                 fontFamily: "Lucidasans",
                 fontSize: 19,
@@ -48,21 +35,17 @@ class CommentInput extends StatelessWidget {
                   EdgeInsets.symmetric(vertical: 27, horizontal: 25),
               focusColor: Color(0xff0962ff),
               filled: true,
-              fillColor: Colors.grey.shade300,
+              fillColor: Colors.white,
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(20),
-                borderSide: BorderSide(
-                  color: Colors.grey.shade300,
-                ),
+                borderSide: BorderSide(color: Colors.white),
               ),
               enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: Colors.grey.shade300,
-                ),
+                borderSide: BorderSide(color: Colors.white),
                 borderRadius: BorderRadius.circular(20),
               ),
             ),
-          ))
+          )),
         ],
       ),
     );

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:glinttest/controllers/twiterController.dart';
 import 'package:glinttest/controllers/userController.dart';
-
-import 'package:glinttest/views/components/input/bloginput.dart';
+import 'package:glinttest/models/tweet.dart';
+import 'package:glinttest/views/components/tweetcart/tweetcart.dart';
+import 'package:glinttest/views/components/input/tweetinput.dart';
 import 'package:glinttest/views/screens/login/loginpage.dart';
-import 'package:glinttest/views/screens/profile/profilepage.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -13,6 +14,8 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final UserController userController = Get.put(UserController());
+  final TwitterController twitterController = new TwitterController();
+  List<Tweet> tweets = [];
   List<bool> addComment = [];
   logout() async {
     // userController.logOut();
@@ -38,12 +41,20 @@ class _HomeState extends State<Home> {
   void postcomment(comment, blogId) {
     // userController.postComment(comment, blogId);
   }
+  Future<bool> loadTweets() async {
+    List<Tweet> t = await twitterController.loadTweets();
+    setState(() {
+      tweets = t;
+    });
+    return true;
+  }
 
   final TextEditingController textEditingController =
       new TextEditingController();
   Widget addblog() {
     return InkWell(
       onTap: () {
+        // loadTweets();
         //logout();
         Get.bottomSheet(Container(
           color: Colors.grey.shade300,
@@ -51,7 +62,7 @@ class _HomeState extends State<Home> {
           child: ListView(
             children: [
               Center(
-                  child: Text("Post Your Blog",
+                  child: Text("Post Your Tweet",
                       style: TextStyle(
                         fontFamily: "Lucidasans",
                         fontSize: 18,
@@ -67,6 +78,7 @@ class _HomeState extends State<Home> {
                 children: [
                   ElevatedButton(
                       onPressed: () {
+                        twitterController.addTweet(textEditingController.text);
                         // userController.postBlog(textEditingController.text);
                         textEditingController.clear();
                         if (Get.isBottomSheetOpen == true) Get.back();
@@ -96,7 +108,7 @@ class _HomeState extends State<Home> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Text(
-              'Add Blog',
+              'Add Tweet',
               style: TextStyle(
                   color: Colors.white,
                   fontSize: 15.0,
@@ -139,29 +151,50 @@ class _HomeState extends State<Home> {
             //     )))
           ],
         ),
-        body: Container(
-            padding: EdgeInsets.all(10),
-            child: Center(
-                child: Text("There is no blog at the moment. Post your blog."))
-            // child: Obx(() {
-            //   // if (userController.blogs.length > 0) {
-            //   //   return ListView.separated(
-            //   //     separatorBuilder: (context, i) {
-            //   //       return SizedBox(height: 10);
-            //   //     },
-            //   //     itemCount: userController.blogs.length,
-            //   //     itemBuilder: (context, i) {
-            //   //       addComment.add(false);
-            //   //       // return BlogCart(userController.blogs[i], addComment[i], i,
-            //   //       //     this.viewCommentBox, this.postcomment, this.support);
-            //   //     },
-            //   //   );
-            //   // } else {
-            //   return
-            //   );
-            //   //}
-            // }),
-            ),
+        body: FutureBuilder(
+          future: loadTweets(),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (snapshot.data == null) {
+              return Container(
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              );
+            } else {
+              return ListView.separated(
+                  separatorBuilder: (context, index) => SizedBox(
+                        height: 10,
+                      ),
+                  itemCount: tweets.length,
+                  itemBuilder: (context, index) =>
+                      BlogCart(tweets[index], index));
+            }
+          },
+        ),
+
+        //  Container(
+        //     padding: EdgeInsets.all(10),
+        //     child: Center(
+        //         child: Text("There is no blog at the moment. Post your blog."))
+        // child: Obx(() {
+        //   // if (userController.blogs.length > 0) {
+        //   //   return ListView.separated(
+        //   //     separatorBuilder: (context, i) {
+        //   //       return SizedBox(height: 10);
+        //   //     },
+        //   //     itemCount: userController.blogs.length,
+        //   //     itemBuilder: (context, i) {
+        //   //       addComment.add(false);
+        //   //       // return BlogCart(userController.blogs[i], addComment[i], i,
+        //   //       //     this.viewCommentBox, this.postcomment, this.support);
+        //   //     },
+        //   //   );
+        //   // } else {
+        //   return
+        //   );
+        //   //}
+        // }),
+        //),
         floatingActionButton: addblog());
   }
 }
