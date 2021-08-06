@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "171823370435",
+    "project_id": "glint-test-bcf38",
+    "storage_bucket": "glint-test-bcf38.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:171823370435:android:2b76b80e62b4d6d2ddd276",
+        "android_client_info": {
+          "package_name": "com.example.glinttest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "171823370435-vmgqk98qa4udttrao2bpqq1ac1vqna8i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.glinttest",
+            "certificate_hash": "430ab9c3442d1078ba453c158576aa9c37501a12"
+          }
+        },
+        {
+          "client_id": "171823370435-43tifu2lhac5t9gfrul6g0dvenrrfiqj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUEBIEBF6WkCnNlLYVS2D_k7lEiZ4_9dw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "171823370435-43tifu2lhac5t9gfrul6g0dvenrrfiqj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
