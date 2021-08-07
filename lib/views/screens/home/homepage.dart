@@ -166,8 +166,7 @@ class _HomeState extends State<Home> {
                         height: 10,
                       ),
                   itemCount: tweets.length,
-                  itemBuilder: (context, index) =>
-                      BlogCart(tweets[index], index));
+                  itemBuilder: (context, index) => BlogCart(tweets[index]));
             }
           },
         ),

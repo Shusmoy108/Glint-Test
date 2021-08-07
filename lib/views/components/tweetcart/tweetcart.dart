@@ -7,31 +7,11 @@ import 'package:glinttest/views/components/input/tweetinput.dart';
 
 class BlogCart extends StatelessWidget {
   final Tweet tweet;
-  final int index;
   late final TextEditingController textEditingController =
       new TextEditingController(text: tweet.tweet);
   final UserController userController = Get.find();
   final TwitterController twitterController = new TwitterController();
-  BlogCart(this.tweet, this.index);
-
-  void deleteComment(String commentId) {
-    // userController.deleteComment(commentId, blog.id);
-  }
-
-  List<Widget> getcomments() {
-    List<Widget> childs = [];
-    // for (var i = 0; i < blog.comments.length; i++) {
-    //   bool delete = (blog.userId.trim() == userController.id.trim()) ||
-    //       (blog.comments[i].userId.trim() == userController.id.trim());
-
-    //   childs.add(CommentCart(blog.comments[i], delete, deleteComment));
-    //   childs.add(Divider(
-    //     thickness: 1,
-    //     color: Colors.grey,
-    //   ));
-    // }
-    return childs;
-  }
+  BlogCart(this.tweet);
 
   @override
   Widget build(BuildContext context) {
@@ -67,76 +47,164 @@ class BlogCart extends StatelessWidget {
               SizedBox(
                 height: 10,
               ),
-              Text("",
+              Text("${tweet.supports.length} people support this tweet.",
                   style: TextStyle(
-                    fontFamily: "Lucidasans",
+                    color: Colors.indigo,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: "Comicsans",
                   )),
               SizedBox(
                 height: 10,
               ),
-              (userController.user?.uid == tweet.userId)
-                  ? Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        ElevatedButton(
-                            onPressed: () {
-                              twitterController.deleteTweet(tweet.id!);
-                              //this.support(blog.id);
-                            },
-                            style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all(Colors.red)),
-                            child: Text("Delete Tweet",
-                                style: TextStyle(
-                                  fontFamily: "Lucidasans",
-                                ))),
-                        ElevatedButton(
-                            onPressed: () {
-                              Get.bottomSheet(Container(
-                                color: Colors.grey.shade300,
-                                padding: EdgeInsets.all(10),
-                                child: ListView(
-                                  children: [
-                                    Center(
-                                        child: Text("Post Your Tweet",
-                                            style: TextStyle(
-                                              fontFamily: "Lucidasans",
-                                              fontSize: 18,
-                                              color: Colors.black,
-                                            ))),
-                                    Divider(
-                                      thickness: 2,
-                                      color: Colors.black,
-                                    ),
-                                    BlogInput(textEditingController),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        ElevatedButton(
-                                            onPressed: () {
-                                              twitterController.editTweet(
-                                                  tweet.id!,
-                                                  textEditingController.text);
-                                              // userController.postBlog(textEditingController.text);
-                                              textEditingController.clear();
-                                              if (Get.isBottomSheetOpen == true)
-                                                Get.back();
-                                            },
-                                            child: Text("Post",
-                                                style: TextStyle(
-                                                  fontFamily: "Lucidasans",
-                                                )))
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              ));
-                              // this.view(index);
-                            },
-                            child: Text("Edit Tweet")),
-                      ],
-                    )
-                  : SizedBox(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  tweet.supports.contains(userController.user?.uid)
+                      ? ElevatedButton(
+                          style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.pink)),
+                          onPressed: () async {
+                            await twitterController.unsupportTweet(
+                                tweet.id!, userController.user!.uid);
+                          },
+                          child: Text("Unsupport",
+                              style: TextStyle(fontFamily: "Lucidasans")))
+                      : ElevatedButton(
+                          style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.green)),
+                          onPressed: () async {
+                            await twitterController.supportTweet(
+                                tweet.id!, userController.user!.uid);
+                          },
+                          child: Text("Support",
+                              style: TextStyle(fontFamily: "Lucidasans"))),
+                  (userController.user?.uid == tweet.userId)
+                      ? ElevatedButton(
+                          onPressed: () {
+                            Get.dialog(Dialog(
+                                child: Padding(
+                              padding: EdgeInsets.all(16),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Attention!!!",
+                                    style: TextStyle(
+                                        fontSize: 25,
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: "Lucidasans"),
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  Text(
+                                    "Are you sure you want to delete the tweet?",
+                                    style: TextStyle(
+                                        fontFamily: "Lucidasans", fontSize: 20),
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      SizedBox(
+                                        width: 50,
+                                      ),
+                                      ElevatedButton(
+                                          onPressed: () {
+                                            Get.back();
+                                          },
+                                          style: ButtonStyle(
+                                              backgroundColor:
+                                                  MaterialStateProperty.all(
+                                                      Colors.red)),
+                                          child: Text("No",
+                                              style: TextStyle(
+                                                fontFamily: "Lucidasans",
+                                              ))),
+                                      ElevatedButton(
+                                          onPressed: () {
+                                            twitterController
+                                                .deleteTweet(tweet.id!);
+                                            Get.back();
+                                          },
+                                          style: ButtonStyle(
+                                              backgroundColor:
+                                                  MaterialStateProperty.all(
+                                                      Colors.green)),
+                                          child: Text("Yes",
+                                              style: TextStyle(
+                                                fontFamily: "Lucidasans",
+                                              )))
+                                    ],
+                                  )
+                                ],
+                              ),
+                            )));
+
+                            //this.support(blog.id);
+                          },
+                          style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.red)),
+                          child: Text("Delete",
+                              style: TextStyle(
+                                fontFamily: "Lucidasans",
+                              )))
+                      : SizedBox(),
+                  (userController.user?.uid == tweet.userId)
+                      ? ElevatedButton(
+                          onPressed: () {
+                            Get.bottomSheet(Container(
+                              color: Colors.grey.shade300,
+                              padding: EdgeInsets.all(10),
+                              child: ListView(
+                                children: [
+                                  Center(
+                                      child: Text("Edit Your Tweet",
+                                          style: TextStyle(
+                                            fontFamily: "Lucidasans",
+                                            fontSize: 18,
+                                            color: Colors.black,
+                                          ))),
+                                  Divider(
+                                    thickness: 2,
+                                    color: Colors.black,
+                                  ),
+                                  BlogInput(textEditingController),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      ElevatedButton(
+                                          onPressed: () {
+                                            twitterController.editTweet(
+                                                tweet.id!,
+                                                textEditingController.text);
+                                            // userController.postBlog(textEditingController.text);
+                                            textEditingController.clear();
+                                            if (Get.isBottomSheetOpen == true)
+                                              Get.back();
+                                          },
+                                          child: Text("Edit Tweet",
+                                              style: TextStyle(
+                                                fontFamily: "Lucidasans",
+                                              )))
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ));
+                            // this.view(index);
+                          },
+                          child: Text("Edit"))
+                      : SizedBox(),
+                ],
+              ),
               SizedBox(
                 height: 10,
               ),

@@ -54,7 +54,7 @@ class UserController extends GetxController {
       return true;
     } catch (e) {
       print(e);
-      Get.snackbar("Error", "User not found. Please Sign up first.",
+      Get.snackbar("Error", "Failed to log in because $e",
           backgroundColor: Colors.red, colorText: Colors.white);
       return false;
     }
