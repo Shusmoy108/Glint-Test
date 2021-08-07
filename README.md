@@ -1,16 +1,7 @@
-# glinttest
+# glinttest(1-Person Twitter App) Mobile Developer Technical Test
 
-A new Flutter project.
+One person Twitter App project.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+There are two pages basically.
+- LoginPage- Done with firebase auth. One can create account with email and password. Already account holder can login with email and password. Also user can login using google.
+- HomePage- Here we can see all the tweets of our app. User can post tweet of 280 characters. User can also edit and delete his tweet. I have implemented one extra feature. Every user can support and unsupport the tweets. The total support number will be shown also. at the top of the appbar there is a logout button for user to logout from the app.
