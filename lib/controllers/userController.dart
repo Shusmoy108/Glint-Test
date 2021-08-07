@@ -20,13 +20,10 @@ class UserController extends GetxController {
       if (event != null) {
         user = event;
         login.value = true;
-        print(user?.email);
-        print(user?.uid);
       } else {
-        print("object");
+        login.value = false;
       }
     });
-    //print(user?.displayName);
   }
 
   Future<void> signOut() async {
@@ -39,10 +36,6 @@ class UserController extends GetxController {
   signUp(String name, String mobile, String password) {}
   Future<bool> signInWithEmailAndPassword(String email, String password) async {
     try {
-      // UserCredential userCredential = await auth.createUserWithEmailAndPassword(
-      //     email: email, password: password);
-      // user = userCredential.user;
-      // print(user?.email);
       final User? user = (await auth.signInWithEmailAndPassword(
         email: email,
         password: password,
@@ -53,7 +46,6 @@ class UserController extends GetxController {
           backgroundColor: Colors.green, colorText: Colors.white);
       return true;
     } catch (e) {
-      print(e);
       Get.snackbar("Error", "Failed to log in because $e",
           backgroundColor: Colors.red, colorText: Colors.white);
       return false;
@@ -65,14 +57,14 @@ class UserController extends GetxController {
       UserCredential userCredential = await auth.createUserWithEmailAndPassword(
           email: email, password: password);
       user = userCredential.user;
-      print(user?.email);
+
       login.value = true;
       Get.snackbar("Success", "${user!.email} signed up successfully",
           backgroundColor: Colors.green, colorText: Colors.white);
       return true;
     } catch (e) {
-      print(e);
-      Get.snackbar("Error", "Failed to sign up with Email & Password",
+      Get.snackbar(
+          "Error", "Failed to sign up with Email & Password because $e",
           backgroundColor: Colors.red, colorText: Colors.white);
       return false;
     }
@@ -97,15 +89,14 @@ class UserController extends GetxController {
       }
 
       user = userCredential.user;
-      print(user?.email);
+
       login.value = true;
 
       Get.snackbar("Success", "Sign In ${user!.email} with Google successfully",
           backgroundColor: Colors.green, colorText: Colors.white);
       return true;
     } catch (e) {
-      print(e);
-      Get.snackbar("Error", "Failed to sign in with Google: $e",
+      Get.snackbar("Error", "Failed to sign in with Google because $e",
           backgroundColor: Colors.red, colorText: Colors.white);
       return false;
     }

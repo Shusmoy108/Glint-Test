@@ -78,11 +78,13 @@ class LoginScreenForm extends State<LoginScreen> {
                     ),
                     ElevatedButton(
                       style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.pink),
                           shape:
                               MaterialStateProperty.all<RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18.0),
-                      ))),
+                            borderRadius: BorderRadius.circular(18.0),
+                          ))),
                       onPressed: () async {
                         bool success =
                             await userController.signUpWithEmailAndPassword(
@@ -117,18 +119,6 @@ class LoginScreenForm extends State<LoginScreen> {
                       emailController.clear();
                       passwordController.clear();
                     }
-
-                    // if (!register) {
-                    //   this.signUp();
-                    // } else {
-                    //   bool x = await userController.signUp(
-                    //       nameController.text,
-                    //       emailController.text,
-                    //       passwordController.text);
-                    //   if (x) {
-                    //     Get.offAll(Home());
-                    //   }
-                    // }
                   },
                   child: Padding(
                       padding: EdgeInsets.all(10),

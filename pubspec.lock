@@ -100,7 +100,7 @@ packages:
     source: hosted
     version: "3.0.0"
   firebase_core:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: firebase_core
       url: "https://pub.dartlang.org"
@@ -120,13 +120,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0"
-  firebase_database:
-    dependency: "direct main"
-    description:
-      name: firebase_database
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "7.1.2"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -142,13 +135,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_webview_plugin:
-    dependency: transitive
-    description:
-      name: flutter_webview_plugin
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.3.11"
   get:
     dependency: "direct main"
     description:
@@ -156,13 +142,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.3.4"
-  github_sign_in:
-    dependency: "direct main"
-    description:
-      name: github_sign_in
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.0.4"
   google_sign_in:
     dependency: "direct main"
     description:
@@ -184,13 +163,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.10.0+1"
-  http:
-    dependency: transitive
-    description:
-      name: http
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.13.3"
   http_parser:
     dependency: transitive
     description:
@@ -233,13 +205,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.0"
-  pedantic:
-    dependency: transitive
-    description:
-      name: pedantic
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.11.1"
   plugin_platform_interface:
     dependency: transitive
     description:

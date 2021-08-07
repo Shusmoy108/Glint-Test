@@ -5,7 +5,6 @@ import 'package:glinttest/controllers/userController.dart';
 import 'package:glinttest/models/tweet.dart';
 import 'package:glinttest/views/components/tweetcart/tweetcart.dart';
 import 'package:glinttest/views/components/input/tweetinput.dart';
-import 'package:glinttest/views/screens/login/loginpage.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -16,31 +15,11 @@ class _HomeState extends State<Home> {
   final UserController userController = Get.put(UserController());
   final TwitterController twitterController = new TwitterController();
   List<Tweet> tweets = [];
-  List<bool> addComment = [];
-  logout() async {
-    // userController.logOut();
-    Get.off(LoginScreen());
-  }
-
   @override
   void initState() {
     super.initState();
   }
 
-  void viewCommentBox(int i) {
-    print("object");
-    setState(() {
-      addComment[i] = !addComment[i];
-    });
-  }
-
-  void support(String blogId) {
-    //userController.addSupport(blogId);
-  }
-
-  void postcomment(comment, blogId) {
-    // userController.postComment(comment, blogId);
-  }
   Future<bool> loadTweets() async {
     List<Tweet> t = await twitterController.loadTweets();
     setState(() {
@@ -83,7 +62,7 @@ class _HomeState extends State<Home> {
                         textEditingController.clear();
                         if (Get.isBottomSheetOpen == true) Get.back();
                       },
-                      child: Text("Post",
+                      child: Text("Post Tweet",
                           style: TextStyle(
                             fontFamily: "Lucidasans",
                           )))
@@ -143,12 +122,6 @@ class _HomeState extends State<Home> {
                 userController.signOut();
               },
             )
-            // child: Text("My Profile",
-            //     style: TextStyle(
-            //       //fontStyle: FontStyle.italic,
-            //       fontFamily: "Lucidasans",
-            //       //fontWeight: FontWeight.bold
-            //     )))
           ],
         ),
         body: FutureBuilder(
@@ -161,39 +134,25 @@ class _HomeState extends State<Home> {
                 ),
               );
             } else {
-              return ListView.separated(
-                  separatorBuilder: (context, index) => SizedBox(
-                        height: 10,
-                      ),
-                  itemCount: tweets.length,
-                  itemBuilder: (context, index) => BlogCart(tweets[index]));
+              if (tweets.length > 0) {
+                return ListView.separated(
+                    separatorBuilder: (context, index) => SizedBox(
+                          height: 10,
+                        ),
+                    itemCount: tweets.length,
+                    itemBuilder: (context, index) => BlogCart(tweets[index]));
+              } else {
+                return Center(
+                  child: Text(
+                      "There is no tweet at the moment. Post your first tweet.",
+                      style: TextStyle(
+                        fontFamily: "Lucidasans",
+                      )),
+                );
+              }
             }
           },
         ),
-
-        //  Container(
-        //     padding: EdgeInsets.all(10),
-        //     child: Center(
-        //         child: Text("There is no blog at the moment. Post your blog."))
-        // child: Obx(() {
-        //   // if (userController.blogs.length > 0) {
-        //   //   return ListView.separated(
-        //   //     separatorBuilder: (context, i) {
-        //   //       return SizedBox(height: 10);
-        //   //     },
-        //   //     itemCount: userController.blogs.length,
-        //   //     itemBuilder: (context, i) {
-        //   //       addComment.add(false);
-        //   //       // return BlogCart(userController.blogs[i], addComment[i], i,
-        //   //       //     this.viewCommentBox, this.postcomment, this.support);
-        //   //     },
-        //   //   );
-        //   // } else {
-        //   return
-        //   );
-        //   //}
-        // }),
-        //),
         floatingActionButton: addblog());
   }
 }
