@@ -57,9 +57,13 @@ class _HomeState extends State<Home> {
                 children: [
                   ElevatedButton(
                       onPressed: () {
-                        twitterController.addTweet(textEditingController.text);
-                        // userController.postBlog(textEditingController.text);
-                        textEditingController.clear();
+                        if (textEditingController.text.length != 0) {
+                          twitterController
+                              .addTweet(textEditingController.text);
+                          // userController.postBlog(textEditingController.text);
+                          textEditingController.clear();
+                        }
+
                         if (Get.isBottomSheetOpen == true) Get.back();
                       },
                       child: Text("Post Tweet",

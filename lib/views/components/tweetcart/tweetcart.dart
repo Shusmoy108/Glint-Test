@@ -182,11 +182,16 @@ class BlogCart extends StatelessWidget {
                                     children: [
                                       ElevatedButton(
                                           onPressed: () {
-                                            twitterController.editTweet(
-                                                tweet.id!,
-                                                textEditingController.text);
-                                            // userController.postBlog(textEditingController.text);
-                                            textEditingController.clear();
+                                            if (textEditingController
+                                                    .text.length !=
+                                                0) {
+                                              twitterController.editTweet(
+                                                  tweet.id!,
+                                                  textEditingController.text);
+                                              // userController.postBlog(textEditingController.text);
+                                              textEditingController.clear();
+                                            }
+
                                             if (Get.isBottomSheetOpen == true)
                                               Get.back();
                                           },

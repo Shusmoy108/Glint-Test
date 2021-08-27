@@ -54,7 +54,7 @@ class TwitterController {
     }).catchError((error) {
       DialogueHelper.showDialogue(
           title: "Error!!",
-          message: "Something went wrong.Failed to delete your.");
+          message: "Something went wrong.Failed to delete your tweet.");
     });
   }
 
