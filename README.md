@@ -1,4 +1,4 @@
-# glinttest(1-Person Twitter App) Mobile Developer Technical Test
+# One-Person Twitter App
 
 One person Twitter App project.
 
