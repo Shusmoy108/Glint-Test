@@ -1,4 +1,4 @@
-# One-Person Twitter App
+# Mini Twitter App
 
 One person Twitter App project.
 
